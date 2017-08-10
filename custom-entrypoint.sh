@@ -13,8 +13,9 @@ function setupNeo4j() {
 	    sleep 1
 	done
 
-	echo "Creating unique node property constraint for label 'Page' and property 'url'."
-	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (page:Page) ASSERT page.url IS UNIQUE"
+	echo "Creating unique node property constraints: :Page.url, :Site.name"
+	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) \
+		"CREATE CONSTRAINT ON (page:Page) ASSERT page.url IS UNIQUE; CREATE CONSTRAINT ON (site:Site) ASSERT site.name IS UNIQUE"
 
 	# Property existence required to assure that each node labeled 'page' has a property 'url.
 	# But this feature is not available in the community edition.
