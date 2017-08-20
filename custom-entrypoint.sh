@@ -13,8 +13,8 @@ function setupNeo4j() {
 	    sleep 1
 	done
 
-	echo "Creating unique node property constraint :Page(url)"
-	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (page:Page) ASSERT page.url IS UNIQUE"
+	echo "Creating unique node property constraint :Resource(url)"
+	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (resource:Resource) ASSERT resource.url IS UNIQUE"
 
 	echo "Creating unique node property constraint :Site(name)"
 	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (site:Site) ASSERT site.name IS UNIQUE"
