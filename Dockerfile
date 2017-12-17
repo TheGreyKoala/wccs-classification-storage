@@ -1,4 +1,4 @@
-FROM neo4j:latest
+FROM neo4j:3.3.1
 LABEL maintainer="Tim Gremplewski <tim.gremplewski@gmail.com>"
 
 RUN apk --no-cache add curl
