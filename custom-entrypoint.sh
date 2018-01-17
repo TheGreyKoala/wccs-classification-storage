@@ -1,4 +1,6 @@
-#!/bin/bash -eu
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 function setupNeo4j() {
     timeout=30
@@ -14,18 +16,18 @@ function setupNeo4j() {
 	done
 
     echo "Creating unique node property constraint :Content(value)"
-    /var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (content:Content) ASSERT content.value IS UNIQUE"
+    /var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (t:Text) ASSERT t.value IS UNIQUE"
 
     echo "Creating unique node property constraint :Property(checksum)"
-    /var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (property:Property) ASSERT property.checksum IS UNIQUE"
+    /var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (c:Content) ASSERT c.checksum IS UNIQUE"
 
 	echo "Creating unique node property constraint :Resource(url)"
-	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (resource:Resource) ASSERT resource.url IS UNIQUE"
+	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (r:Resource) ASSERT r.url IS UNIQUE"
 
 	echo "Creating unique node property constraint :Site(id)"
-	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (site:Site) ASSERT site.id IS UNIQUE"
+	/var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (s:Site) ASSERT s.id IS UNIQUE"
 
-	# Property existence required to assure that each node labeled 'page' has a property 'url.
+	# Property existence is required to ensure that each node labeled 'page' has a property 'url'.
 	# But this feature is not available in the community edition.
 }
 
