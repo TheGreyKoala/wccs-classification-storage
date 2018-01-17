@@ -15,10 +15,10 @@ function setupNeo4j() {
 	    sleep 1
 	done
 
-    echo "Creating unique node property constraint :Content(value)"
+    echo "Creating unique node property constraint :Text(value)"
     /var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (t:Text) ASSERT t.value IS UNIQUE"
 
-    echo "Creating unique node property constraint :Property(checksum)"
+    echo "Creating unique node property constraint :Content(checksum)"
     /var/lib/neo4j/bin/cypher-shell -u neo4j -p $(echo $NEO4J_AUTH | cut -f2 -d/) "CREATE CONSTRAINT ON (c:Content) ASSERT c.checksum IS UNIQUE"
 
 	echo "Creating unique node property constraint :Resource(url)"
